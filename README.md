@@ -1,4 +1,4 @@
-The project`s name: Bloty (Blood type calculator)
+`The projects name:` Bloty (Blood type calculator)
 Creator: Danil Khmelnytskyi
 About the project:
 This project was made with the aim to make easy claculating blood types in different combination of input info (blood type of mother and father OR child and one of the parents OR only child). It can also be useful for student`s on biology classes.
