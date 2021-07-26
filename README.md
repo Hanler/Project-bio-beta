@@ -1,4 +1,5 @@
 ###Short info
+
 <b>The project's name:</b> `Bloty` (Blood type calculator)
 
 <b>Creator:</b> `Danil Khmelnytskyi`
