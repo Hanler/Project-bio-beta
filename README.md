@@ -6,10 +6,10 @@ Short info
 <b>Creator:</b> `Danil Khmelnytskyi`
 
 <b>About the project:</b>
-This project was made with the aim to make `easy claculating blood types` in different combination of input info (blood type of mother and father OR child and one of the parents OR only child). It can also be `useful for student's` on biology classes.
+This project was made with the aim to make `easy claculating blood types` in different combination of input info (blood type of mother and father OR child and one of the parents OR only child). It can also be `useful for students` in biology classes.
 
 <b>Getting started:</b>
-If you want to download this project, you might use `git` or download the project as archive straight from the `GitHub.`
+If you want to download this project, you might use `git` or download the project as an archive straight from `GitHub.`
 
 <b>Precondtions:</b>
 * `PyQt5` library was used in this proj, so, you need be sure that you have installed one
