@@ -4,7 +4,27 @@ from collections import Counter
 
 class mainUI(Ui_MainWindow):
     def init(self):
+        # make the checkBoxes of heterozigosity disabled
+        self.checkBox_3.setEnabled(False)
+        self.checkBox_4.setEnabled(False)
+        # handing methods on actions
         self.pushButton.clicked.connect(self.takeData)
+        self.comboBox.currentIndexChanged.connect(self.checkConditionFirstInput)
+        self.comboBox_2.currentIndexChanged.connect(self.checkConditionSecondInput)
+
+    def checkConditionFirstInput(self):
+        valueInComboBox = self.comboBox.currentText()
+        if (valueInComboBox == "I" or valueInComboBox == "IV"):
+            self.checkBox_3.setEnabled(False)
+        else:
+            self.checkBox_3.setEnabled(True)
+
+    def checkConditionSecondInput(self):
+        valueInComboBox = self.comboBox_2.currentText()
+        if (valueInComboBox == "I" or valueInComboBox == "IV"):
+            self.checkBox_4.setEnabled(False)
+        else:
+            self.checkBox_4.setEnabled(True)
 
     def takeData(self):
         result1_from_comboBox = ui.comboBox.currentText()
@@ -13,10 +33,9 @@ class mainUI(Ui_MainWindow):
         result2_from_checkBox_2 = self.checkBox_2.checkState()
         result1_from_checkBox_3 = self.checkBox_3.checkState()
         result2_from_checkBox_4 = self.checkBox_4.checkState()
-        print(result1_from_comboBox,result2_from_comboBox_2,result1_from_checkBox,result2_from_checkBox_2,result1_from_checkBox_3,result2_from_checkBox_4)
         self.algorithm(result1_from_comboBox,result2_from_comboBox_2,result1_from_checkBox,result2_from_checkBox_2,result1_from_checkBox_3,result2_from_checkBox_4)
     
-    def algorithm(self,bloodType1,bloodType2,rhesus1,rhesus2,heterozygosity1,heterozygosity2):
+    def algorithm(self, bloodType1, bloodType2, rhesus1, rhesus2, heterozygosity1, heterozygosity2):
         if (heterozygosity1 == 0):
             switcher = {
                 "I" : "IoIo",
