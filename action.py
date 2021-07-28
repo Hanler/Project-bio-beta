@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from newDesig3 import Ui_MainWindow
+from design import Ui_MainWindow
 from collections import Counter
 
 class mainUI(Ui_MainWindow):
@@ -9,26 +9,30 @@ class mainUI(Ui_MainWindow):
         self.checkBox_4.setEnabled(False)
         # handing methods on actions
         self.pushButton.clicked.connect(self.takeData)
-        self.comboBox.currentIndexChanged.connect(self.checkConditionFirstInput)
-        self.comboBox_2.currentIndexChanged.connect(self.checkConditionSecondInput)
 
-    def checkConditionFirstInput(self):
-        valueInComboBox = self.comboBox.currentText()
-        if (valueInComboBox == "I" or valueInComboBox == "IV"):
-            self.checkBox_3.setEnabled(False)
-        else:
-            self.checkBox_3.setEnabled(True)
+        self.comboBox.currentIndexChanged.connect(lambda : self.checkCondition(self.comboBox, self.checkBox_3))
+        self.comboBox_2.currentIndexChanged.connect(lambda : self.checkCondition(self.comboBox_2, self.checkBox_4))
 
-    def checkConditionSecondInput(self):
-        valueInComboBox = self.comboBox_2.currentText()
+    def checkCondition(self, input, check):
+        valueInComboBox = input.currentText()
         if (valueInComboBox == "I" or valueInComboBox == "IV"):
-            self.checkBox_4.setEnabled(False)
+            check.setEnabled(False)
+            check.setChecked(False)
         else:
-            self.checkBox_4.setEnabled(True)
+            check.setEnabled(True)
 
     def takeData(self):
-        result1_from_comboBox = ui.comboBox.currentText()
+        result1_from_comboBox = self.comboBox.currentText()
         result2_from_comboBox_2 = self.comboBox_2.currentText()
+        result1_from_checkBox = self.checkBox.checkState()
+        result2_from_checkBox_2 = self.checkBox_2.checkState()
+        result1_from_checkBox_3 = self.checkBox_3.checkState()
+        result2_from_checkBox_4 = self.checkBox_4.checkState()
+        self.algorithm(result1_from_comboBox,result2_from_comboBox_2,result1_from_checkBox,result2_from_checkBox_2,result1_from_checkBox_3,result2_from_checkBox_4)
+    
+    def takeDataTab2(self):
+        result1_from_comboBox = self.comboBox_3.currentText()
+        result2_from_comboBox_2 = self.comboBox_4.currentText()
         result1_from_checkBox = self.checkBox.checkState()
         result2_from_checkBox_2 = self.checkBox_2.checkState()
         result1_from_checkBox_3 = self.checkBox_3.checkState()
