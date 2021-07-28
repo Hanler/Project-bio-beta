@@ -403,7 +403,7 @@ class Ui_MainWindow(object):
         MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -478,3 +478,6 @@ class Ui_MainWindow(object):
         self.label_24.setText(_translate("MainWindow", "Відповідно до вхідних даних у одного з батьків можуть бути такі групи крові:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "2 задача"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "3 задача"))
+
+         #Own changes in GUI
+        MainWindow.setWindowIcon(QtGui.QIcon('icon-blood.svg'))
