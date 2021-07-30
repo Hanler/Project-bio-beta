@@ -1,3 +1,4 @@
+from typing import NoReturn
 from PyQt5 import QtCore, QtGui, QtWidgets
 from design import Ui_MainWindow
 from collections import Counter
@@ -7,11 +8,16 @@ class mainUI(Ui_MainWindow):
         # make the checkBoxes of heterozigosity disabled
         self.checkBox_3.setEnabled(False)
         self.checkBox_4.setEnabled(False)
+        self.checkBox_6.setEnabled(False)
+        self.checkBox_8.setEnabled(False)
         # handing methods on actions
         self.pushButton.clicked.connect(self.takeData)
+        self.pushButton_2.clicked.connect(self.actionTab2)
 
         self.comboBox.currentIndexChanged.connect(lambda : self.checkCondition(self.comboBox, self.checkBox_3))
         self.comboBox_2.currentIndexChanged.connect(lambda : self.checkCondition(self.comboBox_2, self.checkBox_4))
+        self.comboBox_3.currentIndexChanged.connect(lambda : self.checkCondition(self.comboBox_3, self.checkBox_6))
+        self.comboBox_4.currentIndexChanged.connect(lambda : self.checkCondition(self.comboBox_4, self.checkBox_8))
 
     def checkCondition(self, input, check):
         valueInComboBox = input.currentText()
@@ -24,15 +30,6 @@ class mainUI(Ui_MainWindow):
     def takeData(self):
         result1_from_comboBox = self.comboBox.currentText()
         result2_from_comboBox_2 = self.comboBox_2.currentText()
-        result1_from_checkBox = self.checkBox.checkState()
-        result2_from_checkBox_2 = self.checkBox_2.checkState()
-        result1_from_checkBox_3 = self.checkBox_3.checkState()
-        result2_from_checkBox_4 = self.checkBox_4.checkState()
-        self.algorithm(result1_from_comboBox,result2_from_comboBox_2,result1_from_checkBox,result2_from_checkBox_2,result1_from_checkBox_3,result2_from_checkBox_4)
-    
-    def takeDataTab2(self):
-        result1_from_comboBox = self.comboBox_3.currentText()
-        result2_from_comboBox_2 = self.comboBox_4.currentText()
         result1_from_checkBox = self.checkBox.checkState()
         result2_from_checkBox_2 = self.checkBox_2.checkState()
         result1_from_checkBox_3 = self.checkBox_3.checkState()
@@ -76,21 +73,18 @@ class mainUI(Ui_MainWindow):
             }
         rhesus1 = switcher1.get(rhesus1, "Error")
         rhesus2 = switcher1.get(rhesus2, "Error")
-        massive1, masyk1 = self.calcGenotyp(bloodType1,rhesus1)
-        massive2, masyk2 = self.calcGenotyp(bloodType2,rhesus2)
+        massive1, masyk1 = self.calcGenotyp(bloodType1, rhesus1)
+        massive2, masyk2 = self.calcGenotyp(bloodType2, rhesus2)
         self.updateTable(massive1, massive2, MainWindow, masyk1, masyk2)
 
-    def updateTable(self, mass1, mass2, MainWindow, masyk1,masyk2):
+    def updateTable(self, mass1, mass2, MainWindow, masyk1, masyk2):
         for i in range(4):
             item = self.tableWidget_2.verticalHeaderItem(i)
             item.setText(mass1[i])
         for j in range(4):
             item = self.tableWidget_2.horizontalHeaderItem(j)
             item.setText(mass2[j])
-            counter1 = 0
-            counter2 = 0
-            counter12 = 0
-            counter22 = 0
+            counter1 = counter2 = counter12 = counter22 = 0
         for g in range(4):
             if g > 1:
                 counter1 = 1
@@ -136,6 +130,8 @@ class mainUI(Ui_MainWindow):
             self.label_12.setText("")
 
     def analyzingResults(self, array):
+        print("analyzingResults is in action!")
+        print(array)
         arr = []
         arr1 = []
         for i in array:
@@ -159,14 +155,7 @@ class mainUI(Ui_MainWindow):
             "IaIb" : "IV група",
             "IbIa" : "IV група"
             }
-        amountI = 0
-        amountIn = 0
-        amountII = 0
-        amountIIn = 0
-        amountIII = 0
-        amountIIIn = 0
-        amountIV = 0
-        amountIVn = 0
+        amountI = amountIn = amountII = amountIIn = amountIII = amountIIIn = amountIV = amountIVn = 0
         for i in range(len(arr1)):
             arr1[i] = switcherRes.get(arr1[i], "Error")
         print(arr1)
@@ -193,38 +182,126 @@ class mainUI(Ui_MainWindow):
                                 amountIVn += 1
             i += 1
         arrayStatistic = [amountI, amountIn, amountII, amountIIn, amountIII, amountIIIn, amountIV, amountIVn]
-        arrayOut1 = []
-        arrayOut2 = []
-        arrayOut3 = []
-        arrayOut4 = []
+        arrayOutput = []
         if(amountI != 0):
-            arrayOut1.append("I група, негативний резус - " + str(int(amountI/(len(arr1)/2)*(amountIn/amountI)*100)) + "%") # percantage with negative R
-            arrayOut1.append("I група, позитивний резус - " + str(int(amountI/(len(arr1)/2)*((amountI-amountIn)/amountI)*100)) + "%") # percantage with positive R
+            arrayOutput.append("I група, негативний резус - " + str(int(amountI/(len(arr1)/2)*(amountIn/amountI)*100)) + "%") # percantage with negative R
+            arrayOutput.append("I група, позитивний резус - " + str(int(amountI/(len(arr1)/2)*((amountI-amountIn)/amountI)*100)) + "%") # percantage with positive R
         else:
-            arrayOut1.append("I група, негативний резус - 0%")
-            arrayOut1.append("I група, позитивний резус - 0%")
+            arrayOutput.append("I група, негативний резус - 0%")
+            arrayOutput.append("I група, позитивний резус - 0%")
         if(amountII != 0):
-            arrayOut2.append("II група, негативний резус - " + str(int(amountII/(len(arr1)/2)*(amountIIn/amountII)*100)) + "%") # percantage with negative R
-            arrayOut2.append("II група, позитивний резус - " + str(int(amountII/(len(arr1)/2)*((amountII-amountIIn)/amountII)*100)) + "%") # percantage with positive R
+            arrayOutput.append("II група, негативний резус - " + str(int(amountII/(len(arr1)/2)*(amountIIn/amountII)*100)) + "%") # percantage with negative R
+            arrayOutput.append("II група, позитивний резус - " + str(int(amountII/(len(arr1)/2)*((amountII-amountIIn)/amountII)*100)) + "%") # percantage with positive R
         else:
-            arrayOut2.append("II група, негативний резус - 0%")
-            arrayOut2.append("II група, позитивний резус - 0%")
+            arrayOutput.append("II група, негативний резус - 0%")
+            arrayOutput.append("II група, позитивний резус - 0%")
         if(amountIII != 0):
-            arrayOut3.append("III група, негативний резус - " + str(int(amountIII/(len(arr1)/2)*(amountIIIn/amountIII)*100)) + "%") # percantage with negative R
-            arrayOut3.append("III група, позитивний резус - " + str(int(amountIII/(len(arr1)/2)*((amountIII-amountIIIn)/amountIII)*100)) + "%") # percantage with positive R
+            arrayOutput.append("III група, негативний резус - " + str(int(amountIII/(len(arr1)/2)*(amountIIIn/amountIII)*100)) + "%") # percantage with negative R
+            arrayOutput.append("III група, позитивний резус - " + str(int(amountIII/(len(arr1)/2)*((amountIII-amountIIIn)/amountIII)*100)) + "%") # percantage with positive R
         else:
-            arrayOut3.append("III група, негативний резус - 0%")
-            arrayOut3.append("III група, позитивний резус - 0%")
+            arrayOutput.append("III група, негативний резус - 0%")
+            arrayOutput.append("III група, позитивний резус - 0%")
         if(amountIV != 0):
-            arrayOut4.append("IV група, негативний резус - " + str(int(amountIV/(len(arr1)/2)*(amountIVn/amountIV)*100)) + "%") # percantage with negative R
-            arrayOut4.append("IV група, позитивний резус - " + str(int(amountIV/(len(arr1)/2)*((amountIV-amountIVn)/amountIV)*100)) + "%") # percantage with positive R
+            arrayOutput.append("IV група, негативний резус - " + str(int(amountIV/(len(arr1)/2)*(amountIVn/amountIV)*100)) + "%") # percantage with negative R
+            arrayOutput.append("IV група, позитивний резус - " + str(int(amountIV/(len(arr1)/2)*((amountIV-amountIVn)/amountIV)*100)) + "%") # percantage with positive R
         else:
-            arrayOut4.append("IV група, негативний резус - 0%")
-            arrayOut4.append("IV група, позитивний резус - 0%")
-        self.label_7.setText(arrayOut1[0] + "   " + arrayOut1[1])
-        self.label_8.setText(arrayOut2[0] + "   " + arrayOut2[1])
-        self.label_9.setText(arrayOut3[0] + "   " + arrayOut3[1])
-        self.label_10.setText(arrayOut4[0] + "   " + arrayOut4[1])
+            arrayOutput.append("IV група, негативний резус - 0%")
+            arrayOutput.append("IV група, позитивний резус - 0%")
+
+        self.label_7.setText(arrayOutput[0] + "   " + arrayOutput[1])
+        self.label_8.setText(arrayOutput[2] + "   " + arrayOutput[3])
+        self.label_9.setText(arrayOutput[4] + "   " + arrayOutput[5])
+        self.label_10.setText(arrayOutput[6] + "   " + arrayOutput[7])
+
+    #Tab 2 methods:
+
+    def takeDataTab2(self):
+        result1_from_comboBox = self.comboBox_3.currentText()
+        result2_from_comboBox_2 = self.comboBox_4.currentText()
+        result1_from_checkBox = self.checkBox_5.checkState()
+        result2_from_checkBox_2 = self.checkBox_7.checkState()
+        result1_from_checkBox_3 = self.checkBox_6.checkState()
+        result2_from_checkBox_4 = self.checkBox_8.checkState()
+        return result1_from_comboBox, result2_from_comboBox_2, result1_from_checkBox, result2_from_checkBox_2, result1_from_checkBox_3, result2_from_checkBox_4
+
+    def actionTab2(self):
+        bloodType1, bloodType2, rhesus1, rhesus2, heterozygosity1, heterozygosity2 = self.takeDataTab2()
+        bloodType1, bloodType2 = self.algorithmTab2(bloodType1, bloodType2, rhesus1, rhesus2, heterozygosity1, heterozygosity2)
+        possibleGenesFromMother = self.findCoincidence(bloodType1, bloodType2)
+        if(possibleGenesFromMother != []):
+            self.substituteGameteForGroups(possibleGenesFromMother)
+        else:
+            self.caseOfIncompatibleGroups()
+
+    def algorithmTab2(self, bloodType1, bloodType2, rhesus1, rhesus2, heterozygosity1, heterozygosity2):
+        if (heterozygosity1 == 0):
+            switcher = {
+                "I" : "IoIo",
+                "II" : "IaIa",
+                "III" : "IbIb",
+                "IV" : "IaIb"
+                }
+        else:
+            switcher = {
+                "II" : "IaIo",
+                "III" : "IbIo"
+                }
+        bloodType1 = switcher.get(bloodType1, "Error")
+        if (heterozygosity2 == 0):
+            switcher = {
+                "I" : "IoIo",
+                "II" : "IaIa",
+                "III" : "IbIb",
+                "IV" : "IaIb"
+                }
+        else:
+            switcher = {
+                "II" : "IaIo",
+                "III" : "IbIo"
+                }
+        bloodType2 = switcher.get(bloodType2, "Error")
+        switcher1 = {
+            0 : "rr",
+            2 : "Rr"
+            }
+        rhesus1 = switcher1.get(rhesus1, "Error")
+        rhesus2 = switcher1.get(rhesus2, "Error")
+        massive1, masyk1 = self.calcGenotyp(bloodType1, rhesus1)
+        massive2, masyk2 = self.calcGenotyp(bloodType2, rhesus2)
+        print (massive1, masyk1)
+        print (massive2, masyk2)
+        return bloodType1, bloodType2
+
+    def findCoincidence(self, bloodType1, bloodType2):
+        arrParentGenotyp = []
+        # Add first gamete to array
+        arrParentGenotyp.append(bloodType1[:2])
+        # If second gamete is different - add its to array
+        if(bloodType1[:2] != bloodType1[2:]):
+            arrParentGenotyp.append(bloodType1[2:])
+        print(bloodType1, bloodType2)
+        # Find equal gametes
+        possibleGenesFromMother = []
+        for i in arrParentGenotyp:
+            if(i == bloodType2[:2]):
+                possibleGenesFromMother.append(bloodType2[2:])
+            elif(i == bloodType2[2:]):
+                possibleGenesFromMother.append(bloodType2[:2])
+        return possibleGenesFromMother
+
+    def caseOfIncompatibleGroups(self):
+        self.label_27.setText("Введені групи не можуть бути у одного з батьків та дитини")
+        return 0
+
+    def substituteGameteForGroups(self, possibleGenesFromMother):
+        swiper = dict(
+            Io = ['I', 'IIg', 'IIIg'],
+            Ia = ['II', 'IV'],
+            Ib = ['III', 'IV']
+        )
+        print(swiper[possibleGenesFromMother[0]])
+        if(len(possibleGenesFromMother) == 2):
+            print(swiper[possibleGenesFromMother[1]])
 
 if __name__ == "__main__":
     import sys
