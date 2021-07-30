@@ -294,14 +294,17 @@ class mainUI(Ui_MainWindow):
         return 0
 
     def substituteGameteForGroups(self, possibleGenesFromMother):
+        possibleGroupsFromMother = []
         swiper = dict(
             Io = ['I', 'IIg', 'IIIg'],
             Ia = ['II', 'IV'],
             Ib = ['III', 'IV']
         )
-        print(swiper[possibleGenesFromMother[0]])
+        possibleGroupsFromMother.append(swiper[possibleGenesFromMother[0]])
+        print(possibleGroupsFromMother[0])
         if(len(possibleGenesFromMother) == 2):
-            print(swiper[possibleGenesFromMother[1]])
+            possibleGroupsFromMother.append(swiper[possibleGenesFromMother[1]])
+            print(possibleGroupsFromMother[1])
 
 if __name__ == "__main__":
     import sys
