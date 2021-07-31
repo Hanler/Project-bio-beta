@@ -229,7 +229,8 @@ class mainUI(Ui_MainWindow):
         bloodType1, bloodType2 = self.algorithmTab2(bloodType1, bloodType2, rhesus1, rhesus2, heterozygosity1, heterozygosity2)
         possibleGenesFromMother = self.findCoincidence(bloodType1, bloodType2)
         if(possibleGenesFromMother != []):
-            self.substituteGameteForGroups(possibleGenesFromMother)
+            result = self.substituteGameteForGroups(possibleGenesFromMother)
+            print(result)
         else:
             self.caseOfIncompatibleGroups()
 
@@ -305,6 +306,9 @@ class mainUI(Ui_MainWindow):
         if(len(possibleGenesFromMother) == 2):
             possibleGroupsFromMother.append(swiper[possibleGenesFromMother[1]])
             print(possibleGroupsFromMother[1])
+            possibleGroupsMerger = list(set(possibleGroupsFromMother[0] + possibleGroupsFromMother[1]))
+            return possibleGroupsMerger
+        return possibleGroupsFromMother[0]
 
 if __name__ == "__main__":
     import sys
