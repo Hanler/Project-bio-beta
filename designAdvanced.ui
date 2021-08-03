@@ -40,7 +40,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Уведіть вхідні дані</string>
+           <string>Вкажіть групи крові</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -59,7 +59,7 @@
                </font>
               </property>
               <property name="text">
-               <string>Група крові чоловіка</string>
+               <string>Чоловіка</string>
               </property>
              </widget>
             </item>
@@ -137,7 +137,7 @@
                </font>
               </property>
               <property name="text">
-               <string>Група крові жінки</string>
+               <string>Жінки</string>
               </property>
              </widget>
             </item>
@@ -280,17 +280,47 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
-          <property name="font">
-           <font>
-            <family>Onyx</family>
-            <pointsize>10</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Розрахувати</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="font">
+             <font>
+              <family>Onyx</family>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Розрахувати</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
         </item>
         <item>
          <widget class="QLabel" name="label_6">
@@ -425,7 +455,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Уведіть вхідні дані</string>
+           <string>Вкажіть групи крові</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -444,7 +474,7 @@
                </font>
               </property>
               <property name="text">
-               <string>Група крові одного з батьків</string>
+               <string>Одного з батьків</string>
               </property>
              </widget>
             </item>
@@ -522,7 +552,7 @@
                </font>
               </property>
               <property name="text">
-               <string>Група крові дитини</string>
+               <string>Дитини</string>
               </property>
              </widget>
             </item>
