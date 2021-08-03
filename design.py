@@ -487,13 +487,13 @@ class Ui_MainWindow(object):
         MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Bloty calculator"))
-        self.label_3.setText(_translate("MainWindow", "Уведіть вхідні дані:"))
+        self.label_3.setText(_translate("MainWindow", "Уведіть вхідні дані"))
         self.label.setText(_translate("MainWindow", "Група крові чоловіка"))
         self.comboBox.setItemText(0, _translate("MainWindow", "I"))
         self.comboBox.setItemText(1, _translate("MainWindow", "II"))
@@ -508,7 +508,7 @@ class Ui_MainWindow(object):
         self.comboBox_2.setItemText(3, _translate("MainWindow", "IV"))
         self.label_5.setText(_translate("MainWindow", "Резус позитивність"))
         self.label_17.setText(_translate("MainWindow", "Гетерозиготність"))
-        self.label_33.setText(_translate("MainWindow", "Таблиця візуалізації:"))
+        self.label_33.setText(_translate("MainWindow", "Таблиця візуалізації"))
         item = self.tableWidget_2.verticalHeaderItem(0)
         item.setText(_translate("MainWindow", "firstr"))
         item = self.tableWidget_2.verticalHeaderItem(1)
@@ -526,9 +526,9 @@ class Ui_MainWindow(object):
         item = self.tableWidget_2.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "fourthc"))
         self.pushButton.setText(_translate("MainWindow", "Розрахувати"))
-        self.label_6.setText(_translate("MainWindow", "Відповідно до вхідних даних у дітей можуть бути такі групи крові:"))
+        self.label_6.setText(_translate("MainWindow", "Можливі групи крові у дітей"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "1 задача"))
-        self.label_23.setText(_translate("MainWindow", "Уведіть вхідні дані:"))
+        self.label_23.setText(_translate("MainWindow", "Уведіть вхідні дані"))
         self.label_15.setText(_translate("MainWindow", "Група крові одного з батьків"))
         self.comboBox_3.setItemText(0, _translate("MainWindow", "I"))
         self.comboBox_3.setItemText(1, _translate("MainWindow", "II"))
@@ -562,8 +562,8 @@ class Ui_MainWindow(object):
         item = self.tableWidget_3.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "fourthc"))
         self.pushButton_2.setText(_translate("MainWindow", "Розрахувати"))
-        self.label_24.setText(_translate("MainWindow", "Відповідно до вхідних даних у одного з батьків можуть бути такі групи крові:"))
-        self.label_35.setText(_translate("MainWindow", "Резус:"))
+        self.label_24.setText(_translate("MainWindow", "Можливі групи крові одного з батьків"))
+        self.label_35.setText(_translate("MainWindow", "Резус"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "2 задача"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "3 задача"))
 
