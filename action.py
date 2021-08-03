@@ -1,5 +1,4 @@
 import time
-from tab1 import Tab1Action
 from typing import NoReturn
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -20,6 +19,7 @@ class mainUI(Ui_MainWindow, Tab1Action, Tab2Action, Changer):
         y_center = int(resolution.height() / 2 - lb.frameSize().height()/2)
 
         an = Animation().animation(lb, x_center, y_center, MainWindow)
+        an.finished.connect(self.onFinishAnimation)
         an.start()
         lb.show()
 
@@ -40,22 +40,10 @@ class mainUI(Ui_MainWindow, Tab1Action, Tab2Action, Changer):
         self.comboBox_2.currentIndexChanged.connect(lambda : checkCondition(self.comboBox_2, self.checkBox_4))
         self.comboBox_3.currentIndexChanged.connect(lambda : checkCondition(self.comboBox_3, self.checkBox_6))
         self.comboBox_4.currentIndexChanged.connect(lambda : checkCondition(self.comboBox_4, self.checkBox_8))
-        # time.sleep(3)
-        lb.close()
-        
-        # self.onFinish()
 
-    def onFinish(self):
-        print("show window")
+    def onFinishAnimation(self):
         MainWindow.show()
-
-class OwnThread(QtCore.QThread):
-    def __init__(self, parent = None):
-        super(OwnThread, self).__init__(parent)
-
-    def run(self):
-        pass
-        # ui.init()
+        lb.close()
 
 if __name__ == "__main__":
     import sys
@@ -63,21 +51,12 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = mainUI()
     
-    lb = SplashScreen().create()
+    splash = SplashScreen()
+    lb = splash.create()
     ui.preInit()
+
     ui.setupUi(MainWindow)
     ui.change()
-    
     ui.init()
-    MainWindow.show()
 
-    myThread = OwnThread()
-    # MainWindow.moveToThread(myThread)
-    myThread.finished.connect(ui.onFinish)
-    myThread.start()
-    
-
-    # ui.setupUi(MainWindow)
-    # ui.init()
-    # MainWindow.show()
     sys.exit(app.exec_())

@@ -5,7 +5,7 @@ class Animation():
     def center(self):
         return self._center
 
-    def animation(self,lb, x_center, y_center, parent):         
+    def animation(self, lb, x_center, y_center, parent):         
         initial_rect = QtCore.QRect(
             x_center,
             y_center,
@@ -25,6 +25,6 @@ class Animation():
         an.setEasingCurve(QtCore.QEasingCurve.InOutSine)
         an.setStartValue(initial_rect)
         an.setEndValue(final_rect)
-        an.setDuration(4000)
+        an.setDuration(2500)
 
         return an
