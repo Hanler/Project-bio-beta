@@ -5,22 +5,6 @@ class Tab2Action():
         self.numberOfPage = 0
         self.amountOfPossibleGroups = 0
 
-    # @property
-    # def numberOfPage(self):
-    #     return self._numberOfPage
-    
-    # @numberOfPage.setter
-    # def numberOfPage(self, new_value):
-    #     self._numberOfPage = new_value
-
-    # @property
-    # def amountOfPossibleGroups(self):
-    #     return self._amountOfPossibleGroups
-    
-    # @amountOfPossibleGroups.setter
-    # def amountOfPossibleGroups(self, new_value):
-    #     self._amountOfPossibleGroups = new_value
-    
     def changeLabelActualPage(self):
         if(self.amountOfPossibleGroups == 0):
             self.label_38.setText("Сторінка 1 з 1")
@@ -48,15 +32,9 @@ class Tab2Action():
             groupResult = self.substituteGameteForGroups(possibleGenesFromMother)
             genotypResultRawView = self.convertGroupsToGenotyp(groupResult)
             self.amountOfPossibleGroups = len(genotypResultRawView)
-            print("Tab2Action().amountOfPossibleGroups")
-            print(self.amountOfPossibleGroups)
             self.printTheResult(groupResult, rhesusResult)
-            print(groupResult)
-            print("Father " + bloodType1 + " " + rhesus2ResultRawView)
-            print("Mother")
-            print(genotypResultRawView, rhesusResultRawView)
+
             massive1, masyk1 = self.calcGenotypTab2(bloodType1, rhesus2ResultRawView)
-            print(self.numberOfPage)
             massive2, masyk2 = self.calcGenotypTab2(genotypResultRawView[self.numberOfPage], rhesusResultRawView)
             self.changeLabelActualPage()
             self.updateTableTab2(massive1, massive2, masyk1, masyk2)
@@ -65,8 +43,6 @@ class Tab2Action():
             self.changeLabelActualPage()
             self.clearTable()
             self.caseOfIncompatibleGroupsOrRhesuses()
-
-        
         
     def goBackPage(self):
         if(self.numberOfPage - 1 >= 0):
@@ -110,8 +86,7 @@ class Tab2Action():
                 if j == 1 or j == 3:
                     counter22 = 1
                 self.tableWidget_3.setItem(g, j, QtWidgets.QTableWidgetItem(masyk1[counter1] + masyk2[counter2] + masyk1[2 + counter12] + masyk2[2 + counter22]))
-                counter2 = 0
-                counter22 = 0
+                counter2 = counter22 = 0
             counter12 = 0
 
     def clearTable(self):
@@ -122,8 +97,6 @@ class Tab2Action():
             item.setText("")
             item = self.tableWidget_3.horizontalHeaderItem(i)
             item.setText("")
-        
-
 
     def algorithmTab2(self, bloodType1, bloodType2, rhesus1, rhesus2, heterozygosity1, heterozygosity2):
         if (heterozygosity1 == 0):
@@ -215,10 +188,8 @@ class Tab2Action():
             Ib = ['III, гомозиготний', 'IV, гетерозиготний']
         )
         possibleGroupsFromMother.append(swiper[possibleGenesFromMother[0]])
-        print(possibleGroupsFromMother[0])
         if(len(possibleGenesFromMother) == 2):
             possibleGroupsFromMother.append(swiper[possibleGenesFromMother[1]])
-            print(possibleGroupsFromMother[1])
             possibleGroupsMerger = list(set(possibleGroupsFromMother[0] + possibleGroupsFromMother[1]))
             return possibleGroupsMerger
         return possibleGroupsFromMother[0]
@@ -233,7 +204,6 @@ class Tab2Action():
                 "III, гетерозиготний" : "IbIo"
                 }
         counter = 0
-        print(groupsArray)
         for i in groupsArray:
             groupsArray[counter] = switcher.get(i, "Error")
             counter += 1
