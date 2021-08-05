@@ -24,6 +24,7 @@ class mainUI(Ui_MainWindow, Tab1Action, Tab2Action, Tab3Action, Changer):
         lb.show()
 
     def init(self):
+        # Tab3Action().__init__()
         # make the checkBoxes of heterozigosity disabled
         self.checkBox_3.setEnabled(False)
         self.checkBox_4.setEnabled(False)
@@ -37,17 +38,34 @@ class mainUI(Ui_MainWindow, Tab1Action, Tab2Action, Tab3Action, Changer):
         self.pushButton_3.clicked.connect(self.goBackPage)
         self.pushButton_4.clicked.connect(self.goNextPage)
 
+        # button "Розрахувати" in 3 tab
         self.pushButton_5.clicked.connect(self.actionTab3)
 
-        # check condition in first tab
+        # buttons with arrows in 3 tab
+        # self.pushButton_8.clicked.connect(self.resetToDefaultGroupsLabels)
+        # self.pushButton_9.clicked.connect(self.resetToDefaultGroupsLabels)
+        # self.pushButton_10.clicked.connect(self.resetToDefaultGroupsLabels)
+        # self.pushButton_11.clicked.connect(self.resetToDefaultGroupsLabels)
+
+        self.pushButton_8.clicked.connect(self.goUpFather)
+        self.pushButton_9.clicked.connect(self.goDownFather)
+        self.pushButton_10.clicked.connect(self.goUpMother)
+        self.pushButton_11.clicked.connect(self.goDownMother)
+
+        # check condition in 1 tab
         self.comboBox.currentIndexChanged.connect(lambda : checkCondition(self.comboBox, self.checkBox_3))
         self.comboBox_2.currentIndexChanged.connect(lambda : checkCondition(self.comboBox_2, self.checkBox_4))
-        # check condition in second tab
+        # check condition in 2 tab
         self.comboBox_3.currentIndexChanged.connect(lambda : checkCondition(self.comboBox_3, self.checkBox_6))
         self.comboBox_4.currentIndexChanged.connect(lambda : checkCondition(self.comboBox_4, self.checkBox_8))
-        # check condition in third tab
+        # check condition in 3 tab
         self.comboBox_5.currentIndexChanged.connect(lambda : checkCondition(self.comboBox_5, self.checkBox_10))
 
+        self.comboBox_5.currentIndexChanged.connect(self.clearGlobalVarTab3)
+        self.checkBox_9.clicked.connect(self.clearGlobalVarTab3)
+        self.checkBox_10.clicked.connect(self.clearGlobalVarTab3)
+
+        self.setStyleToChosenGroup()
     def onFinishAnimation(self):
         MainWindow.show()
         lb.close()

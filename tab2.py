@@ -30,10 +30,11 @@ class Tab2Action():
 
         if(possibleGenesFromMother != [] and rhesusResult != ""):
             groupResult = self.substituteGameteForGroups(possibleGenesFromMother)
-            genotypResultRawView = self.convertGroupsToGenotyp(groupResult)
-            self.amountOfPossibleGroups = len(genotypResultRawView)
             self.printTheResult(groupResult, rhesusResult)
 
+            genotypResultRawView = self.convertGroupsToGenotyp(groupResult)
+            self.amountOfPossibleGroups = len(genotypResultRawView)
+            
             massive1, masyk1 = self.calcGenotypTab2(bloodType1, rhesus2ResultRawView)
             massive2, masyk2 = self.calcGenotypTab2(genotypResultRawView[self.numberOfPage], rhesusResultRawView)
             self.changeLabelActualPage()

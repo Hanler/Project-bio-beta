@@ -1,33 +1,76 @@
 from PyQt5 import QtWidgets
 
 class Tab3Action():
+
+    numberOfChosenFathersGroup = 0
+    amountOfFathersGroups = 0
+    numberOfChosenMothersGroup = 0
+    amountOfMothersGroups = 0
+
+    def clearGlobalVarTab3(self):
+        self.numberOfChosenFathersGroup = 0
+        self.amountOfFathersGroups = 0
+        self.numberOfChosenMothersGroup = 0
+        self.amountOfMothersGroups = 0
+
+    def goUpFather(self):
+        self.actionTab3()
+        if(self.numberOfChosenFathersGroup - 1 >= 0):
+            self.numberOfChosenFathersGroup = self.numberOfChosenFathersGroup - 1
+        print(self.numberOfChosenFathersGroup)
+        self.actionTab3()
+
+    def goDownFather(self):
+        if(self.numberOfChosenFathersGroup + 1 < self.amountOfFathersGroups):
+            self.numberOfChosenFathersGroup = self.numberOfChosenFathersGroup + 1
+        print(self.numberOfChosenFathersGroup)
+        self.actionTab3()
+
+    def goUpMother(self):
+        if(self.numberOfChosenMothersGroup - 1 >= 0):
+            self.numberOfChosenMothersGroup = self.numberOfChosenMothersGroup - 1
+        self.actionTab3()
+
+    def goDownMother(self):
+        if(self.numberOfChosenMothersGroup + 1 < self.amountOfMothersGroups):
+            self.numberOfChosenMothersGroup = self.numberOfChosenMothersGroup + 1
+        self.actionTab3()
+
+    def resetToDefaultGroupsLabels(self):
+        labelObjects = [self.label_50, self.label_51, self.label_52, self.label_53, self.label_54, self.label_55]
+        for i in labelObjects:
+            i.setStyleSheet("")
+
+    def setStyleToChosenGroup(self):
+        labelObjects1 = [self.label_50, self.label_51, self.label_52]
+        labelObjects1[self.numberOfChosenFathersGroup].setStyleSheet("padding: 0px 10px; color: grey;")
+        labelObjects2 = [self.label_53, self.label_54, self.label_55]
+        labelObjects2[self.numberOfChosenMothersGroup].setStyleSheet("padding: 0px 10px; color: grey;")
+    
     def actionTab3(self):
+        self.resetToDefaultGroupsLabels()
         bloodType, rhesus, heterozygosity = self.takeDataTab3()
         gametes, rhesus = self.algorithmTab3(bloodType, rhesus, heterozygosity)
         fathersGroups = self.substituteGameteForGroupsTab3(gametes[0], "man")
         mothersGroups = self.substituteGameteForGroupsTab3(gametes[1], "woman")
 
-        fathersRhesus, mothersRhesus = self.findRhesusTab3(rhesus)
+        fathersRhesus, mothersRhesus, rhesusForOutput = self.findRhesusTab3(rhesus)
 
         self.clearLabelsTab3()
-        self.printTheResultTab3(fathersGroups, mothersGroups)
+        self.printTheResultTab3(fathersGroups, mothersGroups, rhesusForOutput)
 
         fathersGroupsRawView = self.convertGroupsToRawViewTab3(fathersGroups)
         mothersGroupsRawView = self.convertGroupsToRawViewTab3(mothersGroups)
 
-        print("Groups: ")
-        print(fathersGroups)
-        print(fathersGroupsRawView)
-        print(mothersGroupsRawView)
-        massive1, masyk1 = self.calcGenotypTab3(fathersGroupsRawView[0], fathersRhesus) #
-        massive2, masyk2 = self.calcGenotypTab3(mothersGroupsRawView[0], mothersRhesus) #
+        self.amountOfFathersGroups = len(fathersGroups)
+        self.amountOfMothersGroups = len(mothersGroups)
+
+        massive1, masyk1 = self.calcGenotypTab3(fathersGroupsRawView[self.numberOfChosenFathersGroup], fathersRhesus) #
+        massive2, masyk2 = self.calcGenotypTab3(mothersGroupsRawView[self.numberOfChosenMothersGroup], mothersRhesus) #
 
         self.updateTableTab3(massive1, massive2, masyk1, masyk2)
-        
-        print("fathersGroups")
-        print(fathersGroups)
-        print("mothersGroups")
-        print(mothersGroups)
+
+        self.setStyleToChosenGroup()
 
     def takeDataTab3(self):
         result_from_comboBox_5 = self.comboBox_5.currentText()
@@ -97,10 +140,12 @@ class Tab3Action():
         if(rhesus == "r"):
             fathersRhesus = "rr"
             mothersRhesus = "rr"
+            rhesusForOutput = "У батьків негативний резус"
         else:
             fathersRhesus = "Rr"
             mothersRhesus = "rr"
-        return fathersRhesus, mothersRhesus
+            rhesusForOutput = "У одного з батьків або у обох батьків позитивний резус"
+        return fathersRhesus, mothersRhesus, rhesusForOutput
 
     def calcGenotypTab3(self, word, word1):
         arrayList = []
@@ -137,7 +182,7 @@ class Tab3Action():
                 counter2 = counter22 = 0
             counter12 = 0
         
-    def printTheResultTab3(self, fatherGroups, motherGroups):
+    def printTheResultTab3(self, fatherGroups, motherGroups, rhesus):
         self.label_50.setText(str(fatherGroups[0]))
         if(len(fatherGroups) > 1):
             self.label_51.setText(str(fatherGroups[1]))
@@ -149,6 +194,8 @@ class Tab3Action():
             self.label_54.setText(str(motherGroups[1]))
         if(len(motherGroups) > 2):
             self.label_55.setText(str(motherGroups[2]))
+
+        self.label_56.setText(rhesus)
 
     # clean the output labels
     def clearLabelsTab3(self):
