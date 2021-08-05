@@ -6,6 +6,24 @@ class Tab3Action():
         gametes, rhesus = self.algorithmTab3(bloodType, rhesus, heterozygosity)
         fathersGroups = self.substituteGameteForGroupsTab3(gametes[0], "man")
         mothersGroups = self.substituteGameteForGroupsTab3(gametes[1], "woman")
+
+        fathersRhesus, mothersRhesus = self.findRhesusTab3(rhesus)
+
+        self.clearLabelsTab3()
+        self.printTheResultTab3(fathersGroups, mothersGroups)
+
+        fathersGroupsRawView = self.convertGroupsToRawViewTab3(fathersGroups)
+        mothersGroupsRawView = self.convertGroupsToRawViewTab3(mothersGroups)
+
+        print("Groups: ")
+        print(fathersGroups)
+        print(fathersGroupsRawView)
+        print(mothersGroupsRawView)
+        massive1, masyk1 = self.calcGenotypTab3(fathersGroupsRawView[0], fathersRhesus) #
+        massive2, masyk2 = self.calcGenotypTab3(mothersGroupsRawView[0], mothersRhesus) #
+
+        self.updateTableTab3(massive1, massive2, masyk1, masyk2)
+        
         print("fathersGroups")
         print(fathersGroups)
         print("mothersGroups")
@@ -54,3 +72,90 @@ class Tab3Action():
         print(gamete)
         gamete = swiper[gamete]
         return gamete
+
+    def convertGroupsToRawViewTab3(self, groups):
+        groupsRawView =[]
+        switcher = {
+                "I, гомозиготна" : "IoIo",
+                "II, гетерозиготна" : "IaIo",
+                "III, гетерозиготна" : "IbIo",
+                "II, гомозиготна" : "IaIa",
+                "IV, гетерозиготна" : "IaIb",
+                "III, гомозиготна" : "IbIb",
+                "I, гомозиготний" : "IoIo",
+                "II, гетерозиготний" : "IaIo",
+                "III, гетерозиготний" : "IbIo",
+                "II, гомозиготний" : "IaIa",
+                "IV, гетерозиготний" : "IaIb",
+                "III, гомозиготний" : "IbIb"
+                }
+        for i in groups:
+            groupsRawView.append(switcher.get(i, "Error"))
+        return groupsRawView
+
+    def findRhesusTab3(self, rhesus):
+        if(rhesus == "r"):
+            fathersRhesus = "rr"
+            mothersRhesus = "rr"
+        else:
+            fathersRhesus = "Rr"
+            mothersRhesus = "rr"
+        return fathersRhesus, mothersRhesus
+
+    def calcGenotypTab3(self, word, word1):
+        arrayList = []
+        for i in word:
+            arrayList.append(i)
+        geno1 = arrayList[0] + arrayList[1]
+        geno2 = arrayList[2] + arrayList[3]
+        arrayList1 = []
+        for j in word1:
+            arrayList1.append(j)
+        geno1_1 = arrayList1[0]
+        geno2_1 = arrayList1[1]
+        return [geno1_1 + geno1, geno1_1 + geno2, geno2_1 + geno1, geno2_1 + geno2], [geno1_1, geno2_1, geno1, geno2]
+
+    def updateTableTab3(self, mass1, mass2, masyk1, masyk2):
+        for i in range(4):
+            item = self.tableWidget_4.verticalHeaderItem(i)
+            item.setText(mass1[i])
+        for j in range(4):
+            item = self.tableWidget_4.horizontalHeaderItem(j)
+            item.setText(mass2[j])
+            counter1 = counter2 = counter12 = counter22 = 0
+        for g in range(4):
+            if g > 1:
+                counter1 = 1
+            if g == 1 or g == 3:
+                counter12 = 1
+            for j in range(4):
+                if j > 1:
+                    counter2 = 1
+                if j == 1 or j == 3:
+                    counter22 = 1
+                self.tableWidget_4.setItem(g, j, QtWidgets.QTableWidgetItem(masyk1[counter1] + masyk2[counter2] + masyk1[2 + counter12] + masyk2[2 + counter22]))
+                counter2 = counter22 = 0
+            counter12 = 0
+        
+    def printTheResultTab3(self, fatherGroups, motherGroups):
+        self.label_50.setText(str(fatherGroups[0]))
+        if(len(fatherGroups) > 1):
+            self.label_51.setText(str(fatherGroups[1]))
+        if(len(fatherGroups) > 2):
+            self.label_52.setText(str(fatherGroups[2]))
+
+        self.label_53.setText(str(motherGroups[0]))
+        if(len(motherGroups) > 1):
+            self.label_54.setText(str(motherGroups[1]))
+        if(len(motherGroups) > 2):
+            self.label_55.setText(str(motherGroups[2]))
+
+    # clean the output labels
+    def clearLabelsTab3(self):
+        self.label_50.setText("")
+        self.label_51.setText("")
+        self.label_52.setText("")
+        self.label_53.setText("")
+        self.label_54.setText("")
+        self.label_55.setText("")
+        self.label_56.setText("")
