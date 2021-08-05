@@ -24,7 +24,6 @@ class mainUI(Ui_MainWindow, Tab1Action, Tab2Action, Tab3Action, Changer):
         lb.show()
 
     def init(self):
-        # Tab3Action().__init__()
         # make the checkBoxes of heterozigosity disabled
         self.checkBox_3.setEnabled(False)
         self.checkBox_4.setEnabled(False)
@@ -42,11 +41,6 @@ class mainUI(Ui_MainWindow, Tab1Action, Tab2Action, Tab3Action, Changer):
         self.pushButton_5.clicked.connect(self.actionTab3)
 
         # buttons with arrows in 3 tab
-        # self.pushButton_8.clicked.connect(self.resetToDefaultGroupsLabels)
-        # self.pushButton_9.clicked.connect(self.resetToDefaultGroupsLabels)
-        # self.pushButton_10.clicked.connect(self.resetToDefaultGroupsLabels)
-        # self.pushButton_11.clicked.connect(self.resetToDefaultGroupsLabels)
-
         self.pushButton_8.clicked.connect(self.goUpFather)
         self.pushButton_9.clicked.connect(self.goDownFather)
         self.pushButton_10.clicked.connect(self.goUpMother)
@@ -66,6 +60,7 @@ class mainUI(Ui_MainWindow, Tab1Action, Tab2Action, Tab3Action, Changer):
         self.checkBox_10.clicked.connect(self.clearGlobalVarTab3)
 
         self.setStyleToChosenGroup()
+        
     def onFinishAnimation(self):
         MainWindow.show()
         lb.close()
