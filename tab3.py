@@ -17,13 +17,11 @@ class Tab3Action():
         self.actionTab3()
         if(self.numberOfChosenFathersGroup - 1 >= 0):
             self.numberOfChosenFathersGroup = self.numberOfChosenFathersGroup - 1
-        print(self.numberOfChosenFathersGroup)
         self.actionTab3()
 
     def goDownFather(self):
         if(self.numberOfChosenFathersGroup + 1 < self.amountOfFathersGroups):
             self.numberOfChosenFathersGroup = self.numberOfChosenFathersGroup + 1
-        print(self.numberOfChosenFathersGroup)
         self.actionTab3()
 
     def goUpMother(self):
@@ -112,7 +110,6 @@ class Tab3Action():
                 Ia = ['II, гомозиготна', 'IV, гетерозиготна'],
                 Ib = ['III, гомозиготна', 'IV, гетерозиготна']
             )
-        print(gamete)
         gamete = swiper[gamete]
         return gamete
 

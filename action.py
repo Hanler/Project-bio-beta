@@ -1,5 +1,4 @@
-from typing import NoReturn
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtWidgets
 
 from design import Ui_MainWindow
 from tab1 import Tab1Action
@@ -9,8 +8,6 @@ from checkCondition import checkCondition
 from splashScreen import SplashScreen
 from animation import Animation
 from style import Changer
-
-from collections import Counter
 
 class mainUI(Ui_MainWindow, Tab1Action, Tab2Action, Tab3Action, Changer):
     def preInit(self):
@@ -60,7 +57,7 @@ class mainUI(Ui_MainWindow, Tab1Action, Tab2Action, Tab3Action, Changer):
         self.checkBox_10.clicked.connect(self.clearGlobalVarTab3)
 
         self.setStyleToChosenGroup()
-        
+
     def onFinishAnimation(self):
         MainWindow.show()
         lb.close()

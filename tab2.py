@@ -167,7 +167,6 @@ class Tab2Action():
         # If second gamete is different - add its to array
         if(bloodType1[:2] != bloodType1[2:]):
             arrParentGenotyp.append(bloodType1[2:])
-        print(bloodType1, bloodType2)
         # Find equal gametes
         possibleGenesFromMother = []
         for i in arrParentGenotyp:

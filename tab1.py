@@ -96,8 +96,6 @@ class Tab1Action():
         return [geno1_1 + geno1, geno1_1 + geno2, geno2_1 + geno1, geno2_1 + geno2], [geno1_1, geno2_1, geno1, geno2]
 
     def analyzingResults(self, array):
-        print("analyzingResults is in action!")
-        print(array)
         arr = []
         arr1 = []
         for i in array:
@@ -124,8 +122,6 @@ class Tab1Action():
         amountI = amountIn = amountII = amountIIn = amountIII = amountIIIn = amountIV = amountIVn = 0
         for i in range(len(arr1)):
             arr1[i] = switcherRes.get(arr1[i], "Error")
-        print(arr1)
-        #
         for i in range(1, len(arr1)):
             if(arr1[i] == 'I група'):
                 amountI += 1
